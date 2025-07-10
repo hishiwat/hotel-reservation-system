@@ -25,20 +25,18 @@ public class ReserveRoomControl {
 			//Update number of available rooms
 			RoomManager roomManager = getRoomManager();
 			roomManager.updateRoomAvailableQty(stayingDate, availableQtyOfChange);
-
 			//Create reservation
 			ReservationManager reservationManager = getReservationManager();
-			String reservationNumber = reservationManager.createReservation(stayingDate);
-			return reservationNumber;
+            return reservationManager.createReservation(stayingDate);
 		}
-		catch (RoomException e) {
-			AppException exception = new AppException("Failed to reserve", e);
-			exception.getDetailMessages().add(e.getMessage());
+		catch (final RoomException e) {
+			final AppException exception = new AppException("Failed to reserve", e);
+			exception.getDetailMessages().add(e.getMessage())
 			exception.getDetailMessages().addAll(e.getDetailMessages());
 			throw exception;
 		}
 		catch (ReservationException e) {
-			AppException exception = new AppException("Failed to reserve", e);
+			final AppException exception = new AppException("Failed to reserve", e);
 			exception.getDetailMessages().add(e.getMessage());
 			exception.getDetailMessages().addAll(e.getDetailMessages());
 			throw exception;

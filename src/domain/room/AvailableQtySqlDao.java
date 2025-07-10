@@ -32,11 +32,11 @@ public class AvailableQtySqlDao implements AvailableQtyDao {
 	 * @see domain.room.AvailableQtyDao#getAvailableQty(java.util.Date)
 	 */
 	public AvailableQty getAvailableQty(Date date) throws RoomException {
-		StringBuffer sql = new StringBuffer();
+		StringBuilder sql = new StringBuilder();
 		Statement statement = null;
 		ResultSet resultSet = null;
 		Connection connection = null;
-		AvailableQty availableQty = null;
+		AvailableQty availableQty;
 		try {
 			connection = getConnection();
 			statement = connection.createStatement();
@@ -47,7 +47,7 @@ public class AvailableQtySqlDao implements AvailableQtyDao {
 			sql.append("';");
 
 			resultSet = statement.executeQuery(sql.toString());
-			if (resultSet.next() == true) {
+			if (resultSet.next()) {
 				availableQty = new AvailableQty();
 				availableQty.setDate(date);
 				availableQty.setQty(Integer.parseInt(resultSet.getString("qty")));
@@ -71,7 +71,7 @@ public class AvailableQtySqlDao implements AvailableQtyDao {
 	 * @see domain.room.AvailableQtyDao#updateAvailableQty(domain.room.AvailableQty)
 	 */
 	public void updateAvailableQty(AvailableQty availableQty) throws RoomException {
-		StringBuffer sql = new StringBuffer();
+		StringBuilder sql = new StringBuilder();
 		Statement statement = null;
 		ResultSet resultSet = null;
 		Connection connection = null;
@@ -102,7 +102,7 @@ public class AvailableQtySqlDao implements AvailableQtyDao {
 	 * @see domain.room.AvailableQtyDao#createAbailableQty(domain.room.AvailableQty)
 	 */
 	public void createAbailableQty(AvailableQty availableQty) throws RoomException {
-		StringBuffer sql = new StringBuffer();
+		StringBuilder sql = new StringBuilder();
 		Statement statement = null;
 		ResultSet resultSet = null;
 		Connection connection = null;

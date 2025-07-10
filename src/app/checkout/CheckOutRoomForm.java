@@ -11,7 +11,7 @@ import app.AppException;
  */
 public class CheckOutRoomForm {
 
-	private CheckOutRoomControl checkOutRoomControl = new CheckOutRoomControl();
+	private final CheckOutRoomControl checkOutRoomControl = new CheckOutRoomControl();
 
 	private CheckOutRoomControl getCheckOutRoomControl() {
 		return checkOutRoomControl;
@@ -20,8 +20,8 @@ public class CheckOutRoomForm {
 	private String roomNumber;
 
 	public void checkOut() throws AppException {
-		/**
-		 * Your code for conducting check-out by using some Control object  
+		/*
+		  Your code for conducting check-out by using some Control object
 		 */
 		getCheckOutRoomControl().checkOut(roomNumber);
 	}

@@ -13,7 +13,7 @@ import app.AppException;
  */
 public class ReserveRoomForm {
 
-	private ReserveRoomControl reserveRoomHandler = new ReserveRoomControl();
+	private final ReserveRoomControl reserveRoomHandler = new ReserveRoomControl();
 
 	private Date stayingDate;
 

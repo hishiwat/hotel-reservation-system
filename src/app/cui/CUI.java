@@ -20,9 +20,9 @@ import app.reservation.ReserveRoomForm;
  */
 public class CUI {
 
-	private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+	private static final String LINE_SEPARATOR = System.lineSeparator();
 
-	private BufferedReader reader;
+	private final BufferedReader reader;
 
 	CUI() {
 		reader = new BufferedReader(new InputStreamReader(System.in));
@@ -32,7 +32,7 @@ public class CUI {
 		try {
 			while (true) {
 				int selectMenu;
-				System.out.println("");
+				System.out.println();
 				System.out.println("Menu");
 				System.out.println("1: Reservation");
 				System.out.println("2: Check-in");
@@ -52,17 +52,11 @@ public class CUI {
 					break;
 				}
 
-				switch (selectMenu) {
-					case 1:
-						reserveRoom();
-						break;
-					case 2:
-						checkInRoom();
-						break;
-					case 3:
-						checkOutRoom();
-						break;
-				}
+                switch (selectMenu) {
+                    case 1 -> reserveRoom();
+                    case 2 -> checkInRoom();
+                    case 3 -> checkOutRoom();
+                }
 			}
 			System.out.println("Ended");
 		}
@@ -79,18 +73,18 @@ public class CUI {
 		System.out.println("Input arrival date in the form of yyyy/mm/dd");
 		System.out.print("> ");
 
-		String dateStr = reader.readLine();
+		final String dateStr = reader.readLine();
 
 		// Validate input
-		Date stayingDate = DateUtil.convertToDate(dateStr);
+		final Date stayingDate = DateUtil.convertToDate(dateStr);
 		if (stayingDate == null) {
 			System.out.println("Invalid input");
 			return;
 		}
 
-		ReserveRoomForm reserveRoomForm = new ReserveRoomForm();
+		final ReserveRoomForm reserveRoomForm = new ReserveRoomForm();
 		reserveRoomForm.setStayingDate(stayingDate);
-		String reservationNumber = reserveRoomForm.submitReservation();
+		final String reservationNumber = reserveRoomForm.submitReservation();
 
 		System.out.println("Reservation has been completed.");
 		System.out.println("Arrival (staying) date is " + DateUtil.convertToString(stayingDate) + ".");
@@ -103,7 +97,7 @@ public class CUI {
 
 		String reservationNumber = reader.readLine();
 
-		if (reservationNumber == null || reservationNumber.length() == 0) {
+		if (reservationNumber == null || reservationNumber.isEmpty()) {
 			System.out.println("Invalid reservation number");
 			return;
 		}
@@ -123,7 +117,7 @@ public class CUI {
 
 		String roomNumber = reader.readLine();
 
-		if (roomNumber == null || roomNumber.length() == 0) {
+		if (roomNumber == null || roomNumber.isEmpty()) {
 			System.out.println("Invalid room number");
 			return;
 		}
