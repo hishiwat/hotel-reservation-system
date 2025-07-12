@@ -27,8 +27,9 @@ public class ManagementScreen {
     }
     private void handleCheckIn() {
         System.out.print("予約番号 > ");
-        boolean ok = cm.checkIn(sc.nextLine().trim());
-        System.out.println(ok ? "チェックイン完了しました。" : "予約が見つからないか、既にチェックイン済みです。");
+        int roomNo = cm.checkIn(sc.nextLine().trim());
+        System.out.println(roomNo != -1 ? "チェックイン完了しました。\n部屋番号: " + roomNo : "予約が見つからないか、既にチェックイン済みです。");
+		System.out.println();
     }
     private void handleCheckOut() {
         System.out.print("部屋番号 > ");
