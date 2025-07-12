@@ -10,11 +10,11 @@ public class CheckInOutManager {
     }
 
     /* ---------- チェックイン ---------- */
-    public boolean checkIn(String reservationId) {
+    public int checkIn(String reservationId) {
         return reservationManager.findById(reservationId)
                 .filter(r -> r.getStatus() == ReservationInfo.Status.BOOKED)
-                .map(r -> { r.checkIn(); return true; })
-                .orElse(false);
+                .map(r -> { r.checkIn(); return r.getRoom().getRoomNumber(); })
+				.orElse(-1);
     }
 
     /* ---------- チェックアウト ---------- */
