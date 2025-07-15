@@ -21,6 +21,15 @@ public class ReservationScreen {
         /* -------- 入力 -------- */
         LocalDate from = inputDate("到着日 (例 2025-07-01) > ");
         LocalDate to   = inputDate("出発日 (例 2025-07-03) > ");
+        while(true){
+            if(to.isBefore(from)){
+                System.out.println("不正な日付の組み合わせです。\n再度日付の入力をお願いします。\n");
+            }
+            else break;
+
+            from = inputDate("到着日 (例 2025-07-01) > ");
+            to   = inputDate("出発日 (例 2025-07-03) > ");
+        }
         System.out.print("人数 > ");
         int guests = Integer.parseInt(sc.nextLine().trim());
         RoomType type = inputRoomType();
