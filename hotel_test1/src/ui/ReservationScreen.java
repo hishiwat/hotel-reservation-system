@@ -23,8 +23,19 @@ public class ReservationScreen {
         /* -------- 入力 -------- */
         final LocalDate from = inputDate("到着日 (例 2025-07-01) > ");
         final LocalDate to = inputDate("出発日 (例 2025-07-03) > ");
-        final int guests = inputGuests();
+        
+        while(true){
+            System.out.println("人数 > ");
+            final int guests = inputGuests();
+
+            if(guest<1){
+                System.out.println("不正な人数です。\n再度人数の入力をお願いします。\n");
+            }
+            else break;
+        }
+        
         final RoomType type = inputRoomType();
+        
 
         /* -------- 検索 -------- */
         final List<Room> list = rm.findAvailableRooms(from, to, guests, type);
