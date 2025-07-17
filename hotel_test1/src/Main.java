@@ -34,7 +34,7 @@ public class Main {
             System.out.print("選択 > ");
 
             switch (sc.nextLine().trim()) {
-                case "1" -> new ReservationScreen(reservationManager).start();
+                case "1" -> new ReservationScreen(reservationManager,chechManager).start();
                 case "2" -> new ManagementScreen(checkManager).start();
                 case "0" -> {
                     System.out.println("終了します。ご利用ありがとうございました。");
