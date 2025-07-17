@@ -1,6 +1,7 @@
 package ui;
 
 import application.ReservationManager;
+import application.CheckInOutManager;
 import domain.Room;
 import domain.RoomType;
 import domain.ReservationInfo;
@@ -11,13 +12,31 @@ import java.util.Scanner;
 
 public class ReservationScreen {
     private final ReservationManager rm;
+    private final CheckInOutManager cm;
     private final Scanner sc = new Scanner(System.in);
 
-    public ReservationScreen(ReservationManager rm) {
+    public ReservationScreen(ReservationManager rm, CheckInOutManager cm) {
         this.rm = rm;
+        this.cm = cm;
     }
 
     public void start() {
+        System.out.println("\n--予約/キャンセル画面--");
+        while (true) {
+            System.out.println("1. 部屋を予約する");
+            System.out.println("2. 予約をキャンセルする");
+            System.out.println("0. 戻る");
+            System.out.print("選択 > ");
+            switch (sc.nextLine().trim()) {
+                case "1" -> handleReservation();
+                case "2" -> handleCancel();
+                case "0" -> { return; }
+                default  -> System.out.println("不正な入力です。");
+            }
+        }
+    }
+    
+    private void handleReservation(){
         System.out.println("\n-- 予約画面 --");
 
         /* -------- 入力 -------- */
@@ -56,6 +75,27 @@ public class ReservationScreen {
         final Room chosen = list.get(idx);
         final ReservationInfo info = rm.makeReservation(chosen, from, to, guests);
         System.out.println("予約完了！ 予約番号: " + info.getId());
+    }
+
+    private void handleCancel(){
+        System.out.println("\n-- キャンセル画面 --");
+        System.out.println("キャンセルする予約番号・部屋番号を入力してください。");
+        System.out.print("予約番号 > ");
+        int roomNo = cm.checkIn(sc.nextLine().trim());
+        System.out.print("部屋番号 > ");
+        try {
+            roomNo = Integer.parseInt(sc.nextLine().trim());
+            Integer price = cm.calcPrice(roomNo);
+            if (price == null) {
+                System.out.println("該当部屋は予約中ではありません。");
+				return;
+            } else {
+                cm.checkOut(roomNo);
+                System.out.println("キャンセルが完了しました。\n");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("番号が不正です。");
+        }
     }
 
     /* ------------- helper ------------- */
